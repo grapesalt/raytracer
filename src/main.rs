@@ -29,7 +29,7 @@ fn main() {
         *pixel = ray_color(r);
     }
 
-    img.save_with_format("output/output.png", ImageFormat::Png)
+    img.save_with_format("output/test.png", ImageFormat::Png)
         .unwrap();
 }
 

@@ -2,7 +2,7 @@
 
 An implementation of Peter Shirley's [_Ray Tracing in One Weekend_](https://raytracing.github.io/books/RayTracingInOneWeekend.html) in rust, for learning purposes.
 
-![Current output](./output/output.png)
+![Current output](./output/test.png)
 
 ## TODO
 
