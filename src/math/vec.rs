@@ -14,12 +14,12 @@ impl Vec3 {
         Vec3 { x: x, y: y, z: z }
     }
 
-    pub fn length_squared(self) -> f32 {
+    pub fn magnitude_squared(self) -> f32 {
         self.x * self.x + self.y * self.y + self.z * self.z
     }
 
-    pub fn length(self) -> f32 {
-        f32::sqrt(self.length_squared())
+    pub fn magnitude(self) -> f32 {
+        f32::sqrt(self.magnitude_squared())
     }
 
     pub fn dot(a: Vec3, b: Vec3) -> f32 {
@@ -32,6 +32,10 @@ impl Vec3 {
             y: a.z * b.x - a.x * b.z,
             z: a.x * b.y - a.y * b.x,
         }
+    }
+
+    pub fn unit(self) -> Vec3 {
+        self / self.magnitude()
     }
 }
 
