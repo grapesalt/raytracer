@@ -15,6 +15,10 @@ An implementation of Peter Shirley's [_Ray Tracing in One Weekend_](https://rayt
 
 ## Changelog
 
+**December 23, Friday** - Added a simple sphere
+
+> So the main loop which drew the background, yeah that was wrong or atleast differed from the author's code. Rather than wasting my time looking for more _sophisticated_ solutions, I wrote the exact same thing given in the book. Also added some color functions which let you create color from hex codes, makes experimentation much easier.
+
 **December 23, Friday** - Added a simple camera and background
 
 **December 23, Friday** - Added `Vec3` and `Ray` class
