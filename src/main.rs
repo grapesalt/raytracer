@@ -1,5 +1,7 @@
 use image::{ImageBuffer, ImageFormat, Rgb, RgbImage};
 
+pub mod math;
+
 fn main() {
     // Image IO
     let mut img: RgbImage = ImageBuffer::new(256, 256);
