@@ -3,6 +3,26 @@ use math::{ray::Ray, vec::Vec3};
 
 pub mod math;
 
+// Color utility functions
+
+fn hex_color_rgb(color: u32) -> Rgb<u8> {
+    Rgb([
+        ((color >> 16) & 0xFF) as u8, // R
+        ((color >> 8) & 0xFF) as u8,  // G
+        (color & 0xFF) as u8,         // B
+    ])
+}
+
+fn hex_color_vec(color: u32) -> Vec3 {
+    let rgb = hex_color_rgb(color);
+
+    Vec3 {
+        x: rgb[0] as f32 / 255.999,
+        y: rgb[1] as f32 / 255.999,
+        z: rgb[2] as f32 / 255.999,
+    }
+}
+
 fn main() {
     // Image IO
     let mut img: RgbImage = ImageBuffer::new(853, 480);
@@ -37,7 +57,9 @@ fn ray_color(r: Ray) -> Rgb<u8> {
     let unit_direction = r.direction.unit();
     let t = 0.5 * (unit_direction.y + 1.0);
 
-    let color = (1.0 - t) * Vec3::new(1.0, 1.0, 1.0) + t * Vec3::new(0.5, 0.7, 1.0);
+    // Lerp between two colors
+    let color = (1.0 - t) * hex_color_vec(0xf4f4ed) + t * hex_color_vec(0xfc7474);
+
     Rgb([
         (color.x * 255.999) as u8,
         (color.y * 255.999) as u8,
