@@ -59,24 +59,37 @@ fn hex_color_vec(color: u32) -> Vec3 {
     }
 }
 
-fn hit_sphere(center: Vec3, r: f32, ray: Ray) -> bool {
+fn hit_sphere(center: Vec3, r: f32, ray: Ray) -> f32 {
     let oc = ray.origin - center;
 
     let a = Vec3::dot(ray.direction, ray.direction);
     let b = 2.0 * Vec3::dot(oc, ray.direction);
     let c = Vec3::dot(oc, oc) - r * r;
-    let d = b * b - 4.0 * a * c;
+    let d = b * b - 4.0 * a * c; // discriminant
 
-    d > 0.0
+    if d < 0.0 {
+        return -1.0;
+    } else {
+        return (-b - f32::sqrt(d)) / (2.0 * a);
+    }
 }
 
 fn ray_color(r: Ray) -> Rgb<u8> {
-    if hit_sphere(Vec3::new(0.0, 0.0, -1.0), 0.5, r) {
-        return hex_color_rgb(0xff0000);
+    let mut t = hit_sphere(Vec3::new(0.0, 0.0, -1.0), 0.5, r);
+    if t > 0.0 {
+        // normal vector
+        let n = (r.at(t) - Vec3::new(0.0, 0.0, -1.0)).unit();
+
+        let color = 0.5 * Vec3::new(n.x + 1.0, n.y + 1.0, n.z + 1.0);
+        return Rgb([
+            (color.x * 255.999) as u8,
+            (color.y * 255.999) as u8,
+            (color.z * 255.999) as u8,
+        ]);
     }
 
     let unit_direction = r.direction.unit();
-    let t = 0.5 * (unit_direction.y + 1.0);
+    t = 0.5 * (unit_direction.y + 1.0);
 
     // Lerp between two colors
     let color = (1.0 - t) * hex_color_vec(0xffffff) + t * hex_color_vec(0x80b3ff);
